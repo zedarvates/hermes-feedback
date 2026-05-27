@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "_comment": "Feedback suggestion patterns. Each pattern triggers a pre-written template — zero LLM tokens.",
+  "patterns": [
+    {
+      "id": "task_complete",
+      "triggers": ["code written", "service configured", "bug fixed", "deployment done", "file created"],
+      "condition": "after 3+ tool calls producing a concrete deliverable"
+    },
+    {
+      "id": "diagnosis",
+      "triggers": ["network traced", "root cause found", "error resolved", "port verified"],
+      "condition": "after collaborative debugging session (2+ diagnosis steps)"
+    },
+    {
+      "id": "exploration",
+      "triggers": ["ideas proposed", "brainstorming", "research done", "options compared"],
+      "condition": "after R&D / creative discussion"
+    },
+    {
+      "id": "long_session",
+      "triggers": ["session >25 turns", "multiple topics", "complex thread"],
+      "condition": "when a discussion has covered 3+ distinct subjects"
+    },
+    {
+      "id": "error_recovery",
+      "triggers": ["mistake corrected", "rollback done", "bug fixed after regression"],
+      "condition": "after I made an error and we recovered together"
+    },
+    {
+      "id": "session_end",
+      "triggers": ["/new", "/quit", "/exit", "/reset"],
+      "condition": "when the user ends the session"
+    }
+  ]
+}

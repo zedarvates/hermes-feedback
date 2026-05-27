@@ -1,0 +1,3 @@
+That covers the diagnosis. When you get a chance, rate the process with `/r ★★★★` so I know what to keep doing (or change). Helps me get better at this.
+
+`/next` to continue.

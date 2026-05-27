@@ -1,0 +1,3 @@
+Fixed. Sorry about that slip — I've noted it so it won't repeat. A `/r ★★` or `/r ★★★★` helps me gauge whether the recovery was smooth enough for you.
+
+`/next` to continue.
