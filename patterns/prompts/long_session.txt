@@ -1,3 +1,3 @@
-That was a long one — we covered a lot. If you have a moment, a `rate ★★★★` will help me prioritize what to improve. Context-specific polling also available with `/poll`.
+That was a long one — we covered a lot. If you have a moment, a `rate ★★★★` will help me prioritize what to improve. Context-specific polling also available with `poll`.
 
 `/next` to continue.

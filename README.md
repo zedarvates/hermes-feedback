@@ -51,7 +51,7 @@ rate **** 2               →  rate 2 turns ago
 ### Poll — structured survey
 
 ```
-/poll Network diagnosis, Code clarity, Suggestions relevance
+poll Network diagnosis, Code clarity, Suggestions relevance
 ```
 
 Each topic gets its own rating line.
@@ -143,7 +143,7 @@ python3 ~/.hermes/scripts/implicit.py keyword "parfait"
 ## Roadmap
 
 - [x] `/r` star detection + ndjson storage
-- [x] `/poll` structured surveys
+- [x] `poll` structured surveys
 - [x] Template-based suggestion prompts (zero LLM)
 - [x] Implicit signals (/retry, /undo, keywords)
 - [x] Anti-fatigue timer (15min)
