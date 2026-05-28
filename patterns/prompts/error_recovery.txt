@@ -1,3 +1,3 @@
-Fixed. Sorry about that slip — I've noted it so it won't repeat. A `rate ★★` or `rate ★★★★` helps me gauge whether the recovery was smooth enough for you.
+Fixed. Sorry about that slip — I've noted it so it won't repeat. A `Hrate ★★` or `Hrate ★★★★` helps me gauge whether the recovery was smooth enough for you.
 
 `/next` to continue.
