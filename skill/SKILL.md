@@ -11,15 +11,18 @@ platforms: [linux, macos]
 ## Quick rating
 
 ```
-/r *        →  1/5  (poor)
-/r **       →  2/5  (needs work)
-/r ***      →  3/5  (okay)
-/r ****     →  4/5  (good)
-/r *****    →  5/5  (excellent)
+rate *        →  1/5  (poor)
+rate **       →  2/5  (needs work)
+rate ***      →  3/5  (okay)
+rate ****     →  4/5  (good)
+rate *****    →  5/5  (excellent)
 
-/r **** diagnosis   →  rate with context
-/r **** 2           →  rate 2 turns ago
+rate **** diagnosis   →  rate with context
+rate **** 2           →  rate 2 turns ago
 ```
+
+> **Note:** `/r` conflicts with the Hermes command parser. Use `rate` instead.
+> The JSONL file is still called `/r`-themed (`ratings.ndjson`) for DPO culture compatibility.
 
 ## Poll — structured multi-topic survey
 
@@ -105,6 +108,45 @@ hermes cron add --name feedback-analyze \
   --prompt "Analyze feedback trends and surface insights"
 ```
 
+## Gateway integration (inline buttons)
+
+The `references/gateway-integration.md` and `scripts/feedback_gateway.py` files
+contain the full implementation for Telegram/Discord star rating buttons:
+
+```
+┌─────────────────────────────────────┐
+│  ❓ How was this response?           │
+│                                     │
+│  [⭐] [⭐⭐] [⭐⭐⭐] [⭐⭐⭐⭐] [⭐⭐⭐⭐⭐]  │
+└─────────────────────────────────────┘
+```
+
+On click → rating saved to `~/.hermes/feedback/ratings.ndjson`, message edits
+to "📊 ⭐⭐⭐ 3/5 — thanks!". Zero LLM tokens for the entire interaction.
+
+### Block-and-wait primitive (same shape as clarify #24191)
+
+```python
+from scripts.feedback_gateway import register_gateway_feedback, wait_for_feedback
+fb_id = "fb_..."  # unique ID
+entry = register_gateway_feedback(fb_id)
+result = wait_for_feedback(fb_id, timeout=600)  # blocks; returns 1-5 or None
+```
+
+### Telegram blueprint (in `feedback_gateway.py blueprint`)
+
+Add to `gateway/platforms/telegram.py`:
+1. `send_feedback_buttons()` method on `TelegramAdapter` — renders 5 stars
+2. `fb:` handler in `_handle_callback_query()` — resolves rating via `resolve_gateway_feedback()`
+3. `_feedback_state` dict in `__init__`
+
+### CLI test
+
+```bash
+python3 ~/.hermes/scripts/feedback_gateway.py save 5 "test"
+python3 ~/.hermes/scripts/feedback_gateway.py blueprint
+```
+
 ## Roadmap
 
 - [x] `/r` star detection + ndjson storage
@@ -114,5 +156,5 @@ hermes cron add --name feedback-analyze \
 - [x] Anti-fatigue timer (15min)
 - [x] ASCII dashboard
 - [x] DPO dataset export
-- [ ] Gateway inline buttons (Telegram/Discord via clarify #24191)
+- [x] Gateway inline buttons — code & blueprint done (needs tg.py integration)
 - [ ] `hermes feedback` native CLI subcommand

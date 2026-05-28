@@ -38,14 +38,14 @@ hermes cron add --name feedback-analyze \
 ### Quick rating
 
 ```
-/r *        →  1/5  (poor)
-/r **       →  2/5  (needs work)
-/r ***      →  3/5  (okay)
-/r ****     →  4/5  (good)
-/r *****    →  5/5  (excellent)
+rate *        →  1/5  (poor)
+rate **       →  2/5  (needs work)
+rate ***      →  3/5  (okay)
+rate ****     →  4/5  (good)
+rate *****    →  5/5  (excellent)
 
-/r **** diagnosis       →  rate with context
-/r **** 2               →  rate 2 turns ago
+rate **** diagnosis       →  rate with context
+rate **** 2               →  rate 2 turns ago
 ```
 
 ### Poll — structured survey
