@@ -1,0 +1,172 @@
+{
+  "schemaVersion": 1,
+  "algorithm": "louvain",
+  "totalFiles": 16,
+  "totalBatches": 2,
+  "exportsByPath": {
+    "scripts/analyze.py": [
+      "load",
+      "summary",
+      "analyze",
+      "export_dpo"
+    ],
+    "scripts/dashboard.py": [
+      "load_ndjson",
+      "ascii_bar",
+      "star_line",
+      "dashboard",
+      "html"
+    ],
+    "scripts/feedback_gateway.py": [
+      "_FeedbackEntry",
+      "_next_id",
+      "register_gateway_feedback",
+      "resolve_gateway_feedback",
+      "wait_for_feedback",
+      "save_rating"
+    ],
+    "scripts/implicit.py": [
+      "save_implicit",
+      "check_keyword"
+    ],
+    "scripts/poll.py": [],
+    "scripts/rate.py": [],
+    "scripts/suggest.py": [
+      "get_prompt",
+      "load_patterns",
+      "can_suggest",
+      "mark_suggested",
+      "print_session_end"
+    ]
+  },
+  "batches": [
+    {
+      "batchIndex": 1,
+      "files": [
+        {
+          "path": "patterns/prompts/diagnosis.txt",
+          "language": "txt",
+          "sizeLines": 3,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "patterns/prompts/error_recovery.txt",
+          "language": "txt",
+          "sizeLines": 3,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "patterns/prompts/exploration.txt",
+          "language": "txt",
+          "sizeLines": 3,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "patterns/prompts/long_session.txt",
+          "language": "txt",
+          "sizeLines": 3,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "patterns/prompts/session_end.txt",
+          "language": "txt",
+          "sizeLines": 1,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "patterns/prompts/task_complete.txt",
+          "language": "txt",
+          "sizeLines": 3,
+          "fileCategory": "docs"
+        }
+      ],
+      "batchImportData": {
+        "patterns/prompts/diagnosis.txt": [],
+        "patterns/prompts/error_recovery.txt": [],
+        "patterns/prompts/exploration.txt": [],
+        "patterns/prompts/long_session.txt": [],
+        "patterns/prompts/session_end.txt": [],
+        "patterns/prompts/task_complete.txt": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 2,
+      "files": [
+        {
+          "path": "patterns/patterns.json",
+          "language": "json",
+          "sizeLines": 36,
+          "fileCategory": "config"
+        },
+        {
+          "path": "README.md",
+          "language": "markdown",
+          "sizeLines": 164,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "scripts/analyze.py",
+          "language": "python",
+          "sizeLines": 98,
+          "fileCategory": "code"
+        },
+        {
+          "path": "scripts/dashboard.py",
+          "language": "python",
+          "sizeLines": 218,
+          "fileCategory": "code"
+        },
+        {
+          "path": "scripts/feedback_gateway.py",
+          "language": "python",
+          "sizeLines": 284,
+          "fileCategory": "code"
+        },
+        {
+          "path": "scripts/implicit.py",
+          "language": "python",
+          "sizeLines": 95,
+          "fileCategory": "code"
+        },
+        {
+          "path": "scripts/poll.py",
+          "language": "python",
+          "sizeLines": 50,
+          "fileCategory": "code"
+        },
+        {
+          "path": "scripts/rate.py",
+          "language": "python",
+          "sizeLines": 47,
+          "fileCategory": "code"
+        },
+        {
+          "path": "scripts/suggest.py",
+          "language": "python",
+          "sizeLines": 123,
+          "fileCategory": "code"
+        },
+        {
+          "path": "skill/SKILL.md",
+          "language": "markdown",
+          "sizeLines": 160,
+          "fileCategory": "docs"
+        }
+      ],
+      "batchImportData": {
+        "patterns/patterns.json": [],
+        "README.md": [],
+        "scripts/analyze.py": [],
+        "scripts/dashboard.py": [],
+        "scripts/feedback_gateway.py": [],
+        "scripts/implicit.py": [],
+        "scripts/poll.py": [],
+        "scripts/rate.py": [],
+        "scripts/suggest.py": [],
+        "skill/SKILL.md": []
+      },
+      "neighborMap": {}
+    }
+  ]
+}

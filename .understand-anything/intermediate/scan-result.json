@@ -1,0 +1,33 @@
+{
+  "projectName": "hermes-feedback",
+  "projectDescription": "A lightweight, token-optimized feedback system for Hermes Agent — star ratings, polls, implicit signals, DPO export with zero LLM token cost",
+  "languages": ["markdown", "json", "python"],
+  "frameworks": [],
+  "files": [
+    {"path": "README.md", "language": "markdown", "sizeLines": 164, "fileCategory": "docs"},
+    {"path": "skill/SKILL.md", "language": "markdown", "sizeLines": 160, "fileCategory": "docs"},
+    {"path": "patterns/patterns.json", "language": "json", "sizeLines": 36, "fileCategory": "config"},
+    {"path": "patterns/prompts/diagnosis.txt", "language": "txt", "sizeLines": 3, "fileCategory": "docs"},
+    {"path": "patterns/prompts/error_recovery.txt", "language": "txt", "sizeLines": 3, "fileCategory": "docs"},
+    {"path": "patterns/prompts/exploration.txt", "language": "txt", "sizeLines": 3, "fileCategory": "docs"},
+    {"path": "patterns/prompts/long_session.txt", "language": "txt", "sizeLines": 3, "fileCategory": "docs"},
+    {"path": "patterns/prompts/session_end.txt", "language": "txt", "sizeLines": 1, "fileCategory": "docs"},
+    {"path": "patterns/prompts/task_complete.txt", "language": "txt", "sizeLines": 3, "fileCategory": "docs"},
+    {"path": "scripts/analyze.py", "language": "python", "sizeLines": 98, "fileCategory": "code"},
+    {"path": "scripts/dashboard.py", "language": "python", "sizeLines": 218, "fileCategory": "code"},
+    {"path": "scripts/feedback_gateway.py", "language": "python", "sizeLines": 284, "fileCategory": "code"},
+    {"path": "scripts/implicit.py", "language": "python", "sizeLines": 95, "fileCategory": "code"},
+    {"path": "scripts/poll.py", "language": "python", "sizeLines": 50, "fileCategory": "code"},
+    {"path": "scripts/rate.py", "language": "python", "sizeLines": 47, "fileCategory": "code"},
+    {"path": "scripts/suggest.py", "language": "python", "sizeLines": 123, "fileCategory": "code"}
+  ],
+  "totalFiles": 16,
+  "filteredByIgnore": 1,
+  "estimatedComplexity": "small",
+  "stats": {
+    "filesScanned": 16,
+    "byCategory": {"code": 7, "config": 1, "docs": 8},
+    "byLanguage": {"python": 7, "markdown": 2, "json": 1, "txt": 6}
+  },
+  "importMap": {}
+}

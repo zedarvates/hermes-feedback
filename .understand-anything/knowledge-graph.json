@@ -1,0 +1,498 @@
+{
+  "version": "1.0.0",
+  "project": {
+    "name": "hermes-feedback",
+    "description": "A lightweight, token-optimized feedback system for Hermes Agent \u2014 star ratings, polls, implicit signals, and DPO export with zero LLM token cost",
+    "languages": [
+      "markdown",
+      "json",
+      "python"
+    ],
+    "frameworks": [],
+    "analyzedAt": "2026-05-28T17:45:00Z",
+    "gitCommitHash": "90d5ed4"
+  },
+  "nodes": [
+    {
+      "id": "document:README.md",
+      "name": "README.md",
+      "type": "document",
+      "filePath": "README.md",
+      "language": "markdown",
+      "summary": "Project documentation \u2014 lightweight token-optimized feedback system with star ratings, polls, implicit signals, DPO export",
+      "tags": [
+        "documentation",
+        "overview",
+        "architecture"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:skill/SKILL.md",
+      "name": "SKILL.md",
+      "type": "document",
+      "filePath": "skill/SKILL.md",
+      "language": "markdown",
+      "summary": "Hermes skill definition for the feedback-rate system. Defines Hrate/Hpoll commands, anti-fatigue rules, and integration points",
+      "tags": [
+        "skill",
+        "definition",
+        "hermes"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:patterns/patterns.json",
+      "name": "patterns.json",
+      "type": "config",
+      "filePath": "patterns/patterns.json",
+      "language": "json",
+      "summary": "Pattern definitions for feedback triggers \u2014 task_complete, diagnosis, exploration, long_session, error_recovery, session_end",
+      "tags": [
+        "configuration",
+        "patterns",
+        "triggers"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:patterns/prompts/diagnosis.txt",
+      "name": "diagnosis.txt",
+      "type": "document",
+      "filePath": "patterns/prompts/diagnosis.txt",
+      "language": "txt",
+      "summary": "Pre-written feedback template for 'diagnosis' pattern \u2014 zero LLM token cost",
+      "tags": [
+        "template",
+        "feedback",
+        "diagnosis"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:patterns/prompts/error_recovery.txt",
+      "name": "error_recovery.txt",
+      "type": "document",
+      "filePath": "patterns/prompts/error_recovery.txt",
+      "language": "txt",
+      "summary": "Pre-written feedback template for 'error_recovery' pattern \u2014 zero LLM token cost",
+      "tags": [
+        "template",
+        "feedback",
+        "error_recovery"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:patterns/prompts/exploration.txt",
+      "name": "exploration.txt",
+      "type": "document",
+      "filePath": "patterns/prompts/exploration.txt",
+      "language": "txt",
+      "summary": "Pre-written feedback template for 'exploration' pattern \u2014 zero LLM token cost",
+      "tags": [
+        "template",
+        "feedback",
+        "exploration"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:patterns/prompts/long_session.txt",
+      "name": "long_session.txt",
+      "type": "document",
+      "filePath": "patterns/prompts/long_session.txt",
+      "language": "txt",
+      "summary": "Pre-written feedback template for 'long_session' pattern \u2014 zero LLM token cost",
+      "tags": [
+        "template",
+        "feedback",
+        "long_session"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:patterns/prompts/session_end.txt",
+      "name": "session_end.txt",
+      "type": "document",
+      "filePath": "patterns/prompts/session_end.txt",
+      "language": "txt",
+      "summary": "Pre-written feedback template for 'session_end' pattern \u2014 zero LLM token cost",
+      "tags": [
+        "template",
+        "feedback",
+        "session_end"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:patterns/prompts/task_complete.txt",
+      "name": "task_complete.txt",
+      "type": "document",
+      "filePath": "patterns/prompts/task_complete.txt",
+      "language": "txt",
+      "summary": "Pre-written feedback template for 'task_complete' pattern \u2014 zero LLM token cost",
+      "tags": [
+        "template",
+        "feedback",
+        "task_complete"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:scripts/analyze.py",
+      "name": "analyze.py",
+      "type": "file",
+      "filePath": "scripts/analyze.py",
+      "language": "python",
+      "summary": "Trend analysis and DPO export \u2014 reads ratings.ndjson, generates statistics, exports DPO training pairs",
+      "tags": [
+        "analysis",
+        "dpo",
+        "export"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:scripts/dashboard.py",
+      "name": "dashboard.py",
+      "type": "file",
+      "filePath": "scripts/dashboard.py",
+      "language": "python",
+      "summary": "ASCII and HTML dashboard \u2014 reads ratings.ndjson, generates visual charts and summary statistics",
+      "tags": [
+        "dashboard",
+        "visualization",
+        "reporting"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:scripts/feedback_gateway.py",
+      "name": "feedback_gateway.py",
+      "type": "file",
+      "filePath": "scripts/feedback_gateway.py",
+      "language": "python",
+      "summary": "Gateway inline buttons blueprint \u2014 prepares fb: prefixed inline buttons for Telegram/Discord delivery",
+      "tags": [
+        "gateway",
+        "telegram",
+        "discord",
+        "buttons"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:scripts/implicit.py",
+      "name": "implicit.py",
+      "type": "file",
+      "filePath": "scripts/implicit.py",
+      "language": "python",
+      "summary": "Implicit signal detection \u2014 maps /retry, /undo, keywords to automatic ratings",
+      "tags": [
+        "implicit",
+        "signals",
+        "automation"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:scripts/poll.py",
+      "name": "poll.py",
+      "type": "file",
+      "filePath": "scripts/poll.py",
+      "language": "python",
+      "summary": "Poll engine \u2014 parses Hpoll syntax, creates structured multi-topic survey templates",
+      "tags": [
+        "poll",
+        "survey",
+        "cli"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:scripts/rate.py",
+      "name": "rate.py",
+      "type": "file",
+      "filePath": "scripts/rate.py",
+      "language": "python",
+      "summary": "Core rating engine \u2014 parses Hrate \u2605...\u2605 syntax, saves to ratings.ndjson with timestamp and context",
+      "tags": [
+        "core",
+        "rating",
+        "cli"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:scripts/suggest.py",
+      "name": "suggest.py",
+      "type": "file",
+      "filePath": "scripts/suggest.py",
+      "language": "python",
+      "summary": "Suggestion engine \u2014 reads pre-written .txt templates, enforces anti-fatigue cooldown",
+      "tags": [
+        "suggestion",
+        "template",
+        "rate-limiting"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:scripts/feedback_gateway.py",
+      "target": "file:scripts/suggest.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "document:README.md",
+      "target": "file:scripts/rate.py",
+      "type": "documents",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "file:scripts/analyze.py",
+      "type": "documents",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "file:scripts/dashboard.py",
+      "type": "documents",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "document:skill/SKILL.md",
+      "type": "documents",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "config:patterns/patterns.json",
+      "type": "documents",
+      "weight": 0.5
+    },
+    {
+      "source": "config:patterns/patterns.json",
+      "target": "file:scripts/suggest.py",
+      "type": "configures",
+      "weight": 0.6
+    },
+    {
+      "source": "config:patterns/patterns.json",
+      "target": "file:scripts/implicit.py",
+      "type": "configures",
+      "weight": 0.6
+    },
+    {
+      "source": "document:skill/SKILL.md",
+      "target": "file:scripts/rate.py",
+      "type": "documents",
+      "weight": 0.5
+    },
+    {
+      "source": "document:skill/SKILL.md",
+      "target": "file:scripts/analyze.py",
+      "type": "documents",
+      "weight": 0.5
+    },
+    {
+      "source": "document:skill/SKILL.md",
+      "target": "file:scripts/dashboard.py",
+      "type": "documents",
+      "weight": 0.5
+    },
+    {
+      "source": "document:skill/SKILL.md",
+      "target": "file:scripts/feedback_gateway.py",
+      "type": "documents",
+      "weight": 0.5
+    },
+    {
+      "source": "document:skill/SKILL.md",
+      "target": "file:scripts/implicit.py",
+      "type": "documents",
+      "weight": 0.5
+    },
+    {
+      "source": "document:skill/SKILL.md",
+      "target": "file:scripts/poll.py",
+      "type": "documents",
+      "weight": 0.5
+    },
+    {
+      "source": "document:skill/SKILL.md",
+      "target": "file:scripts/suggest.py",
+      "type": "documents",
+      "weight": 0.5
+    },
+    {
+      "source": "config:patterns/patterns.json",
+      "target": "document:patterns/prompts/task_complete.txt",
+      "type": "configures",
+      "weight": 0.6
+    },
+    {
+      "source": "config:patterns/patterns.json",
+      "target": "document:patterns/prompts/diagnosis.txt",
+      "type": "configures",
+      "weight": 0.6
+    },
+    {
+      "source": "config:patterns/patterns.json",
+      "target": "document:patterns/prompts/exploration.txt",
+      "type": "configures",
+      "weight": 0.6
+    },
+    {
+      "source": "config:patterns/patterns.json",
+      "target": "document:patterns/prompts/long_session.txt",
+      "type": "configures",
+      "weight": 0.6
+    },
+    {
+      "source": "config:patterns/patterns.json",
+      "target": "document:patterns/prompts/error_recovery.txt",
+      "type": "configures",
+      "weight": 0.6
+    },
+    {
+      "source": "config:patterns/patterns.json",
+      "target": "document:patterns/prompts/session_end.txt",
+      "type": "configures",
+      "weight": 0.6
+    }
+  ],
+  "layers": [
+    {
+      "id": "layer:core-rating",
+      "name": "Core Rating Engine",
+      "description": "Parsing and storing user ratings",
+      "nodeIds": [
+        "file:scripts/rate.py",
+        "file:scripts/poll.py"
+      ]
+    },
+    {
+      "id": "layer:analysis",
+      "name": "Analysis & Export",
+      "description": "Trend analysis, DPO export, statistics",
+      "nodeIds": [
+        "file:scripts/analyze.py",
+        "file:scripts/dashboard.py"
+      ]
+    },
+    {
+      "id": "layer:feedback-collection",
+      "name": "Feedback Collection",
+      "description": "Suggestion engine and implicit signals",
+      "nodeIds": [
+        "file:scripts/suggest.py",
+        "file:scripts/implicit.py"
+      ]
+    },
+    {
+      "id": "layer:gateway",
+      "name": "Gateway Integration",
+      "description": "Inline buttons for messaging platforms",
+      "nodeIds": [
+        "file:scripts/feedback_gateway.py"
+      ]
+    },
+    {
+      "id": "layer:configuration",
+      "name": "Pattern Configuration",
+      "description": "Trigger definitions and pre-written templates",
+      "nodeIds": [
+        "config:patterns/patterns.json",
+        "document:patterns/prompts/task_complete.txt",
+        "document:patterns/prompts/diagnosis.txt",
+        "document:patterns/prompts/exploration.txt",
+        "document:patterns/prompts/long_session.txt",
+        "document:patterns/prompts/error_recovery.txt",
+        "document:patterns/prompts/session_end.txt"
+      ]
+    },
+    {
+      "id": "layer:documentation",
+      "name": "Documentation & Skill",
+      "description": "README and Hermes skill definition",
+      "nodeIds": [
+        "document:README.md",
+        "document:skill/SKILL.md"
+      ]
+    }
+  ],
+  "tour": [
+    {
+      "order": 1,
+      "title": "Project Overview",
+      "description": "Start with the README to understand the feedback system's purpose and architecture.",
+      "nodeIds": [
+        "document:README.md"
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Core Rating Engine",
+      "description": "The heart of the system \u2014 parsing Hrate \u2605...\u2605 syntax and storing ratings.",
+      "nodeIds": [
+        "file:scripts/rate.py"
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Poll & Survey System",
+      "description": "Structured multi-topic surveys via Hpoll command.",
+      "nodeIds": [
+        "file:scripts/poll.py"
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Feedback Collection",
+      "description": "Suggestion engine with pre-written templates and implicit signal detection.",
+      "nodeIds": [
+        "file:scripts/suggest.py",
+        "file:scripts/implicit.py"
+      ]
+    },
+    {
+      "order": 5,
+      "title": "Pattern Configuration",
+      "description": "Trigger definitions and pre-written templates \u2014 the knowledge base driving suggestions.",
+      "nodeIds": [
+        "config:patterns/patterns.json"
+      ]
+    },
+    {
+      "order": 6,
+      "title": "Analysis & Export",
+      "description": "Trend analysis, statistics, and DPO dataset export.",
+      "nodeIds": [
+        "file:scripts/analyze.py",
+        "file:scripts/dashboard.py"
+      ]
+    },
+    {
+      "order": 7,
+      "title": "Gateway Integration",
+      "description": "Blueprint for inline buttons on Telegram/Discord.",
+      "nodeIds": [
+        "file:scripts/feedback_gateway.py"
+      ]
+    },
+    {
+      "order": 8,
+      "title": "Hermes Skill Definition",
+      "description": "How the system integrates as a Hermes skill \u2014 triggers, anti-fatigue, conventions.",
+      "nodeIds": [
+        "document:skill/SKILL.md"
+      ]
+    }
+  ]
+}
