@@ -11,17 +11,12 @@ platforms: [linux, macos]
 ## Quick rating
 
 ```
-rate *        →  1/5  (poor)
-rate **       →  2/5  (needs work)
-rate ***      →  3/5  (okay)
-rate ****     →  4/5  (good)
-rate *****    →  5/5  (excellent)
-
-rate **** diagnosis   →  rate with context
-rate **** 2           →  rate 2 turns ago
+hermes-feedback rate 4     →  4/5  (good)
+hermes-feedback rate 5 "Great diagnosis"
+hermes-feedback poll Network, Code clarity, Suggestions
 ```
 
-> **Note:** `/r` conflicts with the Hermes command parser. Use `rate` instead.
+> **Note:** All operations available via the unified `hermes-feedback` CLI.
 > The JSONL file is still called `/r`-themed (`ratings.ndjson`) for DPO culture compatibility.
 
 ## Poll — structured multi-topic survey

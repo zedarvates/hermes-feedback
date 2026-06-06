@@ -1,0 +1,173 @@
+#!/usr/bin/env python3
+"""
+hermes-feedback — Unified CLI for Hermes Feedback system.
+
+Usage:
+  hermes-feedback rate <1-5> [context]
+  hermes-feedback poll <topic1, topic2, ...>
+  hermes-feedback implicit <signal> [context]
+  hermes-feedback suggest <pattern>
+  hermes-feedback dashboard [--summary|--html]
+  hermes-feedback analyze [--export-dpo]
+  hermes-feedback gateway <save <1-5> [context]|blueprint>
+
+Zero LLM tokens for the entire feedback loop.
+"""
+import json, os, sys, subprocess
+from datetime import datetime, timezone
+
+SCRIPTS_DIR = os.path.dirname(os.path.abspath(__file__))
+FEED_DIR = os.path.expanduser("~/.hermes/feedback")
+RATINGS_FILE = os.path.join(FEED_DIR, "ratings.ndjson")
+IMPLICIT_FILE = os.path.join(FEED_DIR, "implicit_signals.ndjson")
+
+def _run_script(name, *args):
+    """Run one of the feedback scripts and return its output."""
+    script = os.path.join(SCRIPTS_DIR, name)
+    if not os.path.exists(script):
+        print(f"✗ Script not found: {script}")
+        sys.exit(1)
+    cmd = [sys.executable, script] + list(args)
+    result = subprocess.run(cmd, capture_output=True, text=True)
+    if result.returncode != 0:
+        print(f"✗ {name} failed: {result.stderr.strip() or result.stdout.strip()}")
+        sys.exit(result.returncode)
+    return result.stdout.strip()
+
+def cmd_rate(args):
+    """Save a star rating (1-5)."""
+    if not args or not args[0].isdigit():
+        print("Usage: hermes-feedback rate <1-5> [context]")
+        sys.exit(1)
+    rating = int(args[0])
+    context = " ".join(args[1:]) if len(args) > 1 else ""
+    os.makedirs(FEED_DIR, exist_ok=True)
+    entry = {
+        "timestamp": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "rating": rating,
+        "session": os.environ.get("HERMES_SESSION_ID", "cli"),
+        "topic": os.environ.get("HERMES_TOPIC", ""),
+        "context": context,
+    }
+    with open(RATINGS_FILE, "a") as f:
+        f.write(json.dumps(entry, ensure_ascii=False) + "\n")
+    count = sum(1 for _ in open(RATINGS_FILE)) if os.path.exists(RATINGS_FILE) else 1
+    stars = "⭐" * rating + "☆" * (5 - rating)
+    print(f"✓ {stars}  {rating}/5 — saved ({count} total ratings)")
+
+def cmd_poll(args):
+    """Multi-topic poll."""
+    if not args:
+        print("Usage: hermes-feedback poll <topic1, topic2, ...>")
+        sys.exit(1)
+    topics = [t.strip() for t in " ".join(args).split(",")]
+    print(f"📋 Poll: {len(topics)} topics")
+    ratings = {}
+    for topic in topics:
+        try:
+            r = int(input(f"  {topic} (1-5): "))
+            r = max(1, min(5, r))
+            ratings[topic] = r
+        except (ValueError, EOFError):
+            ratings[topic] = None
+    os.makedirs(FEED_DIR, exist_ok=True)
+    entry = {
+        "timestamp": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "type": "poll",
+        "ratings": ratings,
+        "session": os.environ.get("HERMES_SESSION_ID", "cli"),
+    }
+    poll_file = os.path.join(FEED_DIR, "polls.ndjson")
+    with open(poll_file, "a") as f:
+        f.write(json.dumps(entry, ensure_ascii=False) + "\n")
+    print(f"✓ Poll saved to {poll_file}")
+
+def cmd_implicit(args):
+    """Record implicit signal."""
+    if not args:
+        print("Usage: hermes-feedback implicit <retry|undo|session-end|keyword <text>>")
+        print("  retry       → 1★ (user rejected response)")
+        print("  undo        → 1★ (user undid exchange)")
+        print("  session-end → recap trigger")
+        print('  keyword     → auto-detect: "parfait"=5★, "nul"=1★')
+        sys.exit(1)
+    signal = args[0]
+    context = " ".join(args[1:]) if len(args) > 1 else ""
+    output = _run_script("implicit.py", signal, context)
+    print(output)
+
+def cmd_suggest(args):
+    """Print a suggestion prompt (zero LLM)."""
+    if not args:
+        print("Usage: hermes-feedback suggest <pattern>")
+        print(f"Patterns: task_complete, diagnosis, exploration, long_session, error_recovery, session_end, can-suggest")
+        sys.exit(1)
+    output = _run_script("suggest.py", args[0])
+    print(output)
+
+def cmd_dashboard(args):
+    """Show feedback dashboard."""
+    flags = [a for a in args if a.startswith("--")]
+    if "--html" in flags:
+        _run_script("dashboard.py", "--html")
+    elif "--summary" in flags:
+        output = _run_script("dashboard.py", "--summary")
+        print(output)
+    else:
+        _run_script("dashboard.py")
+
+def cmd_analyze(args):
+    """Analyze feedback trends."""
+    flags = [a for a in args if a.startswith("--")]
+    if "--export-dpo" in flags:
+        _run_script("analyze.py", "--export-dpo")
+    elif "--summary" in flags:
+        output = _run_script("analyze.py", "--summary")
+        print(output)
+    else:
+        _run_script("analyze.py")
+
+def cmd_gateway(args):
+    """Gateway button tools."""
+    if not args:
+        print("Usage: hermes-feedback gateway <save <1-5> [context]|blueprint>")
+        sys.exit(1)
+    if args[0] == "blueprint":
+        output = _run_script("feedback_gateway.py", "blueprint")
+        print(output)
+    elif args[0] == "save" and len(args) >= 2:
+        rating = int(args[1])
+        context = " ".join(args[2:]) if len(args) > 2 else "gateway button"
+        output = _run_script("feedback_gateway.py", "save", str(rating), context)
+        print(output)
+    else:
+        print("Usage: hermes-feedback gateway <save <1-5> [context]|blueprint>")
+        sys.exit(1)
+
+def main():
+    if len(sys.argv) < 2:
+        print(__doc__)
+        sys.exit(0)
+
+    command = sys.argv[1]
+    args = sys.argv[2:]
+
+    commands = {
+        "rate": cmd_rate,
+        "poll": cmd_poll,
+        "implicit": cmd_implicit,
+        "suggest": cmd_suggest,
+        "dashboard": cmd_dashboard,
+        "analyze": cmd_analyze,
+        "gateway": cmd_gateway,
+    }
+
+    if command in commands:
+        commands[command](args)
+    else:
+        print(f"✗ Unknown command: {command}")
+        print(__doc__)
+        sys.exit(1)
+
+if __name__ == "__main__":
+    main()
